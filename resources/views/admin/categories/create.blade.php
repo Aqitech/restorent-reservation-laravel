@@ -7,7 +7,8 @@
     <div class="py-12">
         <div class="mt-10 sm:mt-0">
             <div class="mt-5 md:col-span-2 md:mt-0">
-              <form action="#" method="POST">
+              <form action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="overflow-hidden shadow sm:rounded-md">
                   <div class="bg-white px-4 py-5 sm:p-6">
                     <div class="grid grid-cols-6 gap-6">
