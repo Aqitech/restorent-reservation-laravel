@@ -12,8 +12,21 @@
                   <div class="bg-white px-4 py-5 sm:p-6">
                     <div class="grid grid-cols-6 gap-6">
                       <div class="col-span-6">
-                        <label for="name" class="block text-sm font-medium text-gray-700">Category Name</label>
+                        <label for="name" class="block text-sm font-medium text-gray-700">Menu Name</label>
                         <input type="text" name="name" id="name" autocomplete="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                      </div>
+                      <div class="col-span-6">
+                        <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
+                        <input type="number" name="price" id="price" autocomplete="price" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                      </div>
+                      <div class="col-span-6">
+                        <label for="select_categories" class="block text-sm font-medium text-gray-700">Select Categories</label>
+                        <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" multiple>
+                          <option value="">Select Category</option>
+                          @foreach($categories as $category)
+                          <option value="{{ $category->id }}">{{ $category->name }}</option>
+                          @endforeach
+                        </select>
                       </div>
                       <div class="col-span-6">
                         <label for="image" class="block text-sm font-medium text-gray-700">Image</label>
