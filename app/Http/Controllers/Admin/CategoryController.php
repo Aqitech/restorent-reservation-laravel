@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\CategoryStoreRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\models\Category;
@@ -16,8 +17,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $title = 'Categories';
         $categories = Category::all();
-        return view('admin.categories.index')->with(compact('categories'));
+        return view('admin.categories.index')->with(compact('categories','title'));
     }
 
     /**

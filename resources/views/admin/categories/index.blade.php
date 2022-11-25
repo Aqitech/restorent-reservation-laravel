@@ -27,7 +27,7 @@
                         </td>
                         <td class="py-4 px-6">{{ $category->description }}</td>
                         <td class="py-4 px-6">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <a href="{{ route('admin.categories.edit', $category->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                             <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
                         </td>
                     </tr>
