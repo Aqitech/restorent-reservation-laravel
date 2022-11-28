@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\MenuStoreRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\models\Category;
 use App\models\Menu;
+use DB;
 
 class MenuController extends Controller
 {
@@ -17,7 +20,8 @@ class MenuController extends Controller
     public function index()
     {
         $menus = Menu::all();
-        return view('admin.menus.index')->with(compact('menus'));
+        $category = DB::table('category_menu')->get();
+        return view('admin.menus.index')->with(compact('menus','category'));
     }
 
     /**
@@ -37,9 +41,22 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MenuStoreRequest $request)
     {
-        //
+        $image = $request->file('image')->store('public/menus');
+
+        $menu = Menu::create([
+            'name' => $request->name,
+            'price' => $request->price,
+            'image' => $image,
+            'description' => $request->description
+        ]);
+
+        if ($request->has('categories')) {
+            $menu->categories()->attach($request->categories);
+        }
+
+        return to_route('admin.menus.index');    
     }
 
     /**
@@ -59,9 +76,10 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Menu $menu)
     {
-        //
+        $categories = Category::all();
+        return view('admin.menus.edit')->with(compact('menu','categories'));
     }
 
     /**
@@ -71,9 +89,31 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Menu $menu)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required'
+        ]);
+        $image = $menu->image;
+        if ($request->hasFile('image')) {
+            Storage::delete($menu->image);
+            $image = $request->file('image')->store('public/menus');
+        }
+
+        $menu->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => $image
+        ]);
+
+        if ($request->has('categories')) {
+            $menu->categories()->sync($request->categories);
+        }
+
+
+        return to_route('admin.menus.index');
     }
 
     /**
