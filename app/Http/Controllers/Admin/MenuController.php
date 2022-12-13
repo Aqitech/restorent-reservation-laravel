@@ -20,7 +20,7 @@ class MenuController extends Controller
     public function index()
     {
         $menus = Menu::all();
-        $category = DB::table('category_menu')->get();
+        $category = 'hello';
         return view('admin.menus.index')->with(compact('menus','category'));
     }
 

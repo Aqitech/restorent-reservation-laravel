@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\TableStoreRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\models\Table;
@@ -35,9 +36,15 @@ class TableController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TableStoreRequest $request)
     {
-        //
+        Table::create([
+            'name' => $request->name,
+            'guest_number' => $request->guest_number,
+            'status' => $request->status,
+            'location' => $request->location,
+        ]);
+        return to_route('admin.tables.index');
     }
 
     /**
@@ -57,9 +64,9 @@ class TableController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Table $table)
     {
-        //
+        return view('admin.tables.edit')->with(compact('table'));
     }
 
     /**
@@ -69,9 +76,20 @@ class TableController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TableStoreRequest $request, Table $table)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'guest_number' => 'required'
+        ]);
+
+        $table->update([
+            'name' => $request->name,
+            'guest_number' => $request->guest_number,
+            'status' => $request->status,
+            'location' => $request->location,
+        ]);
+        return to_route('admin.tables.index');
     }
 
     /**
@@ -80,8 +98,10 @@ class TableController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Table $table)
     {
-        //
+        $table->delete();
+
+        return to_route('admin.tables.index');
     }
 }
