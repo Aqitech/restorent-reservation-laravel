@@ -7,34 +7,35 @@
     <div class="py-12">
         <div class="mt-10 sm:mt-0">
             <div class="mt-5 md:col-span-2 md:mt-0">
-              <form action="{{ route('admin.reservations.store') }}" method="POST">
+              <form action="{{ route('admin.reservations.update', $reservation->id) }}" method="POST">
+                @method('PUT')
                 @csrf
                 <div class="overflow-hidden shadow sm:rounded-md">
                   <div class="bg-white px-4 py-5 sm:p-6">
                     <div class="grid grid-cols-6 gap-6">
                       <div class="col-span-6">
                         <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
-                        <input type="text" name="first_name" id="first_name" autocomplete="first_name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <input type="text" name="first_name" id="first_name" autocomplete="first_name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $reservation->first_name }}">
                       </div>
                       <div class="col-span-6">
                         <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
-                        <input type="text" name="last_name" id="last_name" autocomplete="last_name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <input type="text" name="last_name" id="last_name" autocomplete="last_name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $reservation->last_name }}">
                       </div>
                       <div class="col-span-6">
                         <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" name="email" id="email" autocomplete="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <input type="email" name="email" id="email" autocomplete="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $reservation->email }}">
                       </div>
                       <div class="col-span-6">
                         <label for="tel_number" class="block text-sm font-medium text-gray-700">Phone Number</label>
-                        <input type="number" name="tel_number" id="tel_number" autocomplete="tel_number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <input type="number" name="tel_number" id="tel_number" autocomplete="tel_number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $reservation->tel_number }}">
                       </div>
                       <div class="col-span-6">
                         <label for="res_date" class="block text-sm font-medium text-gray-700">Reservation Date</label>
-                        <input type="datetime-local" name="res_date" id="res_date" autocomplete="res_date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <input type="datetime-local" name="res_date" id="res_date" autocomplete="res_date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $reservation->res_date }}">
                       </div>
                       <div class="col-span-6">
                         <label for="guest_number" class="block text-sm font-medium text-gray-700">Number of Guest</label>
-                        <input type="number" name="guest_number" id="guest_number" autocomplete="guest_number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <input type="number" name="guest_number" id="guest_number" autocomplete="guest_number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="{{ $reservation->guest_number }}">
                       </div>
                       <div class="col-span-6">
                         <label for="table_id" class="block text-sm font-medium text-gray-700">Select Table</label>

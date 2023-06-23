@@ -49,6 +49,7 @@ class ReservationController extends Controller
             'table_id' => $request->table_id,
             'guest_number' => $request->guest_number,
         ]);
+
         return to_route('admin.reservations.index');
     }
 
@@ -71,7 +72,9 @@ class ReservationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $reservation = Reservation::find($id);
+        $tables = Table::all(); 
+        return view('admin.reservations.edit')->with(compact('tables', 'reservation'));
     }
 
     /**
@@ -81,9 +84,9 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ReservationStoreRequest $request, $id)
     {
-        //
+        dd($request->all());
     }
 
     /**

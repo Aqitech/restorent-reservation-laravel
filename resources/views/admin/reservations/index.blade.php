@@ -12,21 +12,31 @@
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="py-3 px-6">Product name</th>
-                        <th scope="col" class="py-3 px-6">Color</th>
-                        <th scope="col" class="py-3 px-6">Category</th>
-                        <th scope="col" class="py-3 px-6">Price</th>
+                        <th scope="col" class="py-3 px-6">ID</th>
+                        <th scope="col" class="py-3 px-6">Customer Name</th>
+                        <th scope="col" class="py-3 px-6">Email</th>
+                        <th scope="col" class="py-3 px-6">Contact Number</th>
+                        <th scope="col" class="py-3 px-6">Reservation Data</th>
+                        <th scope="col" class="py-3 px-6">Table</th>
+                        <th scope="col" class="py-3 px-6">Number of Guests</th>
                         <th scope="col" class="py-3 px-6">Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($reservations as $reservation)
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">Apple MacBook Pro 17"</th>
-                        <td class="py-4 px-6">Sliver</td>
-                        <td class="py-4 px-6">Laptop</td>
-                        <td class="py-4 px-6">$2999</td>
-                        <td class="py-4 px-6"><a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a></td>
+                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $reservation->id }}</th>
+                        <td class="py-4 px-6">{{ $reservation->first_name ?? null }} {{ $reservation->last_name ?? null }}</td>
+                        <td class="py-4 px-6">{{ $reservation->email }}</td>
+                        <td class="py-4 px-6">{{ $reservation->tel_number }}</td>
+                        <td class="py-4 px-6">{{ $reservation->res_date }}</td>
+                        <td class="py-4 px-6">{{ $reservation->table_id }}</td>
+                        <td class="py-4 px-6">{{ $reservation->guest_number }}</td>
+                        <td class="py-4 px-6">
+                            <a href="{{ route('admin.reservations.edit', $reservation->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                        </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
