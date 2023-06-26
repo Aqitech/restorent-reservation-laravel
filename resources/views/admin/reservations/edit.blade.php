@@ -42,7 +42,7 @@
                         <select name="table_id" id="table_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                           <option value="">Select Table</option>
                           @foreach($tables as $table)
-                          <option value="{{ $table->id }}">{{ $table->name }}</option>
+                          <option value="{{ $table->id }}" {{ $reservation->table_id == $table->id ? 'selected' : '' }}>{{ $table->name }}</option>
                           @endforeach
                         </select>
                       </div>

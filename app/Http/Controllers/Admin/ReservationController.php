@@ -61,7 +61,9 @@ class ReservationController extends Controller
      */
     public function show($id)
     {
-        //
+        $reservation = Reservation::find($id);
+        $tables = Table::all(); 
+        return view('admin.reservations.edit')->with(compact('tables', 'reservation'));
     }
 
     /**
@@ -72,9 +74,7 @@ class ReservationController extends Controller
      */
     public function edit($id)
     {
-        $reservation = Reservation::find($id);
-        $tables = Table::all(); 
-        return view('admin.reservations.edit')->with(compact('tables', 'reservation'));
+        //
     }
 
     /**
@@ -84,9 +84,21 @@ class ReservationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ReservationStoreRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        dd($request->all());
+        $reservation = Reservation::find($id);
+
+        $reservation->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'tel_number' => $request->tel_number,
+            'res_date' => $request->res_date,
+            'guest_number' => $request->guest_number,
+            'table_id' => $request->table_id
+        ]);
+
+        return to_route('admin.reservations.index');
     }
 
     /**
@@ -97,6 +109,10 @@ class ReservationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $reservation = Reservation::find($id);
+        
+        $reservation->delete();
+
+        return to_route('admin.reservations.index');
     }
 }
